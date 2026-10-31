@@ -209,8 +209,7 @@ blockquote.q{margin:.8em 1.6em;font-style:italic}
         <caption>Danis</caption>
         <tr><td colspan="2" class="ph">
           <!-- PUT YOUR PHOTO HERE: save it as danis.jpg next to index.html -->
-          <img src="danis.jpg" alt="Danis, reportedly at rest" width="220" height="260"
-               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;220&quot; height=&quot;260&quot;><rect width=&quot;220&quot; height=&quot;260&quot; fill=&quot;#eaecf0&quot;/><text x=&quot;110&quot; y=&quot;125&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;#72777d&quot; text-anchor=&quot;middle&quot;>PLACEHOLDER</text><text x=&quot;110&quot; y=&quot;145&quot; font-family=&quot;Arial&quot; font-size=&quot;11&quot; fill=&quot;#72777d&quot; text-anchor=&quot;middle&quot;>danis.jpg</text></svg>')">
+          <img id="dpic" src="danis.jpg" alt="Danis, reportedly at rest" width="220" height="260" onerror="dpicNext(this)">
         </td></tr>
         <tr><td colspan="2" class="cap">Danis, photographed at rest. The photograph was reportedly taken before the light changed.</td></tr>
         <tr><th>Born</th><td>Before time had a name<sup class="tag"><a href="https://en.wikipedia.org/wiki/Wikipedia:Citation_needed">[<i>citation needed</i>]</a></sup></td></tr>
@@ -405,5 +404,13 @@ blockquote.q{margin:.8em 1.6em;font-style:italic}
   </main>
 </div>
 
+<script>
+var dpicList=["danis.jpeg","danis.png","danis.webp","Danis.jpg","Danis.jpeg","Danis.png","danis.JPG","danis.JPEG","danis.PNG","danis.jpg.jpg","danis.jpeg.jpg","danis.png.png"],dpicI=0;
+function dpicNext(img){
+  if(dpicI<dpicList.length){img.src=dpicList[dpicI++];return;}
+  img.onerror=null;
+  img.src='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="220" height="260"><rect width="220" height="260" fill="#eaecf0"/><text x="110" y="125" font-family="Arial" font-size="14" fill="#72777d" text-anchor="middle">PLACEHOLDER</text><text x="110" y="145" font-family="Arial" font-size="11" fill="#72777d" text-anchor="middle">danis.jpg</text></svg>');
+}
+</script>
 </body>
 </html>
