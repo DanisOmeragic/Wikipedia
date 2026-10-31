@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Danis - Wikipedia</title>
+<link rel="icon" href="https://en.wikipedia.org/static/favicon/wikipedia.ico">
+<style>
+*{box-sizing:border-box}
+html{font-size:100%;-webkit-text-size-adjust:100%}
+body{margin:0;background:#fff;color:#202122;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Lato,Helvetica,Arial,sans-serif;font-size:14px;line-height:1.6}
+a{color:#0645ad;text-decoration:none}
+a:hover{text-decoration:underline}
+a.new{color:#d33}
+a:visited{color:#0645ad}
+sup{line-height:1;font-size:75%}
+sup.ref a,sup.ref a:visited{color:#0645ad}
+
+/* Header */
+.hdr{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid #eaecf0;height:50px;display:flex;align-items:center;padding:0 12px;gap:8px}
+.hdr .burger{width:32px;height:32px;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:0 7px;cursor:pointer}
+.hdr .burger i{display:block;height:2px;background:#54595d;border-radius:1px}
+.logo{display:flex;align-items:center;gap:6px;margin-right:auto;min-width:0}
+.logo img.icon{width:36px;height:36px}
+.logo .words{display:flex;flex-direction:column;justify-content:center;line-height:1}
+.logo .words img.wm{height:17px;width:auto;display:block}
+.logo .words img.tag{height:9px;width:auto;margin-top:3px;display:block}
+.search{flex:0 1 560px;display:flex;align-items:center;background:#eaecf0;border:1px solid #a2a9b1;border-radius:2px;height:32px;padding:0 8px;gap:8px;color:#72777d}
+.search svg{flex:none}
+.search span{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.usr{display:flex;align-items:center;gap:14px;margin-left:auto;font-size:14px;white-space:nowrap}
+.usr .dots{font-size:20px;line-height:1;color:#54595d;letter-spacing:1px}
+
+/* Layout */
+.page{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);padding:0 16px}
+.toc{display:none}
+.main{min-width:0}
+.tabs{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid #a2a9b1;margin-top:14px;font-size:13px;gap:8px;flex-wrap:wrap}
+.tabs ul{list-style:none;margin:0;padding:0;display:flex}
+.tabs li{padding:6px 10px 5px;margin-bottom:-1px}
+.tabs li.sel{border-bottom:2px solid #202122;color:#202122}
+.tabs li.sel a{color:#202122}
+.tabs .right{margin-left:auto}
+.tabs .tools{color:#202122}
+.titlebar{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-top:10px}
+h1{font-family:"Linux Libertine","Georgia","Times",serif;font-weight:400;font-size:1.8em;line-height:1.3;margin:0 0 2px;padding:0}
+.lang{font-size:13px;color:#0645ad;border:1px solid #a2a9b1;border-radius:2px;padding:3px 8px;white-space:nowrap;margin-top:6px;background:#f8f9fa}
+.sub{font-size:13px;color:#54595d;margin:0 0 12px}
+
+/* Article body */
+.body p{margin:.5em 0 .5em;line-height:1.6}
+.body h2{font-family:"Linux Libertine","Georgia","Times",serif;font-weight:400;font-size:1.5em;line-height:1.3;margin:1em 0 .25em;padding:0;border-bottom:1px solid #a2a9b1;overflow:auto}
+.body h3{font-size:1.2em;font-weight:700;margin:.8em 0 .1em;line-height:1.3}
+.edit{font-family:-apple-system,"Segoe UI",sans-serif;font-size:12px;font-weight:400;float:right;margin-left:1em;color:#54595d}
+.edit a{color:#0645ad}
+.hatnote{font-style:italic;padding-left:1.6em;margin:0 0 .5em}
+.hatnote i{font-style:normal}
+.ambox{border:1px solid #a2a9b1;border-left:10px solid #36c;background:#fbfbfb;margin:0 0 .6em;padding:.35em .9em;font-size:90%;display:flex;gap:.8em;align-items:center}
+.ambox.warn{border-left-color:#f28500}
+.ambox .ic{flex:none;width:32px;height:32px;border-radius:50%;background:#36c;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:18px}
+.ambox.warn .ic{background:#f28500}
+.ambox b{font-weight:700}
+
+/* Infobox */
+.infobox{float:right;clear:right;width:22em;max-width:100%;margin:.4em 0 1em 1.4em;border:1px solid #a2a9b1;background:#f8f9fa;padding:3px;font-size:88%;line-height:1.5;border-spacing:3px;border-collapse:separate}
+.infobox caption{font-weight:700;font-size:125%;padding:4px;text-align:center}
+.infobox th{text-align:left;vertical-align:top;padding:2px 6px 2px 0;white-space:nowrap;font-weight:700;width:34%}
+.infobox td{vertical-align:top;padding:2px 0}
+.infobox .ph{text-align:center;padding:6px 0 2px}
+.infobox .ph img{max-width:100%;height:auto;display:block;margin:0 auto;border:1px solid #c8ccd1;background:#fff;min-height:200px;min-width:220px}
+.infobox .cap{text-align:center;font-size:92%;padding:2px 4px 6px}
+.infobox .sec{background:#ccf;text-align:center;font-weight:700;padding:3px}
+
+ul.lst{margin:.3em 0 0 1.6em;padding:0}
+ul.lst li{margin-bottom:.1em}
+ol.refs{margin:.3em 0 0 0;padding-left:2.2em;font-size:90%;line-height:1.5}
+ol.refs li{margin-bottom:.2em}
+.cs1{font-style:normal}
+.cn{color:#0645ad}
+sup.tag{font-size:80%;white-space:nowrap}
+sup.tag a{color:#0645ad}
+.wikitable{border:1px solid #a2a9b1;border-collapse:collapse;background:#f8f9fa;margin:1em 0;font-size:100%;display:block;overflow-x:auto;max-width:100%}
+.wikitable th,.wikitable td{border:1px solid #a2a9b1;padding:.2em .5em;vertical-align:top}
+.wikitable th{background:#eaecf0;text-align:center}
+blockquote.q{margin:.8em 1.6em;font-style:italic}
+
+/* Navbox */
+.navbox{border:1px solid #a2a9b1;width:100%;clear:both;font-size:88%;text-align:center;padding:1px;margin:1.2em 0 0;background:#fdfdfd}
+.navbox .t{background:#ccf;font-weight:700;padding:.25em 1em;line-height:1.5}
+.navbox .row{display:flex;border-top:2px solid #fdfdfd}
+.navbox .g{background:#ddf;font-weight:700;width:9em;padding:.25em 1em;display:flex;align-items:center;justify-content:center;flex:none}
+.navbox .l{flex:1;padding:.25em .5em;background:#fdfdfd;line-height:1.7;text-align:center}
+.navbox .l span+span:before{content:" \00b7  ";font-weight:700}
+.navbox .l span{white-space:nowrap}
+.navbox .l{display:block}
+
+.cats{border:1px solid #a2a9b1;background:#f8f9fa;padding:5px 10px;margin:1em 0;font-size:90%;clear:both}
+.cats a{white-space:nowrap}
+
+/* Footer */
+.footer{border-top:1px solid #a2a9b1;margin:2em 0 0;padding:1.2em 0 2em;font-size:12px;color:#54595d}
+.footer ul{list-style:none;margin:0 0 1em;padding:0}
+.footer ul.places{display:flex;flex-wrap:wrap;gap:6px 16px}
+.footer li{margin-bottom:.4em}
+.footer .icons{display:flex;gap:10px;align-items:center;margin-top:1em}
+.footer .icons span{display:inline-block;padding:4px 8px;border:1px solid #c8ccd1;background:#f8f9fa;font-size:11px;color:#202122}
+
+@media (min-width:1000px){
+  body{font-size:14px}
+  .page{grid-template-columns:15em minmax(0,1fr);gap:0 32px;padding:0 24px}
+  .toc{display:block;position:sticky;top:62px;align-self:start;max-height:calc(100vh - 70px);overflow:auto;padding-top:22px;font-size:13px;line-height:1.35}
+  .toc .hd{font-weight:700;color:#202122;margin-bottom:6px;font-size:13px}
+  .toc ul{list-style:none;margin:0;padding:0}
+  .toc li{margin:0;padding:5px 0 5px 10px;border-left:2px solid transparent}
+  .toc li a{color:#54595d}
+  .toc li.cur{border-left-color:#202122}
+  .toc li.cur a{color:#202122}
+  .toc li.sub2{padding-left:24px}
+  .mobtoc{display:none}
+}
+@media (max-width:999px){
+  body{font-size:15.5px}
+  .mobtoc{border:1px solid #a2a9b1;background:#f8f9fa;display:inline-block;padding:6px 12px;margin:.2em 0 .8em;font-size:14px}
+  .usr .opt{display:none}
+  .search span{display:none}
+  .search{flex:0 0 36px;padding:0 0 0 8px;background:none;border:none;margin-left:auto}
+  .logo{margin-right:0}
+  .tabs .right{display:none}
+  .infobox{float:none;width:100%;margin:.4em 0 1em}
+  .navbox .row{flex-direction:column}
+  .navbox .g{width:100%}
+  .lang{display:none}
+  h1{font-size:1.75em}
+}
+@media (max-width:480px){
+  .page{padding:0 12px}
+  .logo .words{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="burger" aria-label="Main menu"><i></i><i></i><i></i></div>
+  <a class="logo" href="#top">
+    <img class="icon" src="https://en.wikipedia.org/static/images/icons/enwiki-25.svg" alt="">
+    <span class="words">
+      <img class="wm" alt="Wikipedia" src="https://en.wikipedia.org/static/images/mobile/copyright/wikipedia-wordmark-en-25.svg">
+      <img class="tag" alt="The Free Encyclopedia" src="https://en.wikipedia.org/static/images/mobile/copyright/wikipedia-tagline-en-25.svg">
+    </span>
+  </a>
+  <div class="search">
+    <svg width="18" height="18" viewBox="0 0 20 20" fill="#54595d"><path d="M12.2 13.6a7 7 0 1 1 1.4-1.4l5.4 5.4-1.4 1.4zM3 8a5 5 0 1 0 10 0A5 5 0 0 0 3 8"/></svg>
+    <span>Search Wikipedia</span>
+  </div>
+  <div class="usr">
+    <a class="opt" href="#top">Donate</a>
+    <a class="opt" href="#top">Create account</a>
+    <a class="opt" href="#top">Log in</a>
+    <span class="dots">&#8943;</span>
+  </div>
+</header>
+
+<div class="page" id="top">
+
+  <nav class="toc" aria-label="Contents">
+    <div class="hd">Contents</div>
+    <ul>
+      <li class="cur"><a href="#top">(Top)</a></li>
+      <li><a href="#Etymology">1 Etymology</a></li>
+      <li><a href="#Early_life">2 Early life</a></li>
+      <li><a href="#Description">3 Description</a></li>
+      <li><a href="#Locomotion">4 Locomotion and sleep</a></li>
+      <li><a href="#Habitat">5 Habitat</a></li>
+      <li><a href="#Behavior">6 Documented behavior</a></li>
+      <li><a href="#Abilities">7 Abilities</a></li>
+      <li><a href="#Works">8 Notable works</a></li>
+      <li><a href="#Sightings">9 Sightings</a></li>
+      <li><a href="#Red_Cross_Nordic">10 Relationship to the Red Cross Nordic community</a></li>
+      <li><a href="#Popular_culture">11 In popular culture</a></li>
+      <li><a href="#Reception">12 Reception</a></li>
+      <li><a href="#See_also">13 See also</a></li>
+      <li><a href="#Notes">14 Notes</a></li>
+      <li><a href="#References">15 References</a></li>
+      <li><a href="#External_links">16 External links</a></li>
+    </ul>
+  </nav>
+
+  <main class="main">
+    <div class="tabs">
+      <ul><li class="sel"><a href="#top">Article</a></li><li><a href="#top">Talk</a></li></ul>
+      <ul class="right"><li class="sel"><a href="#top">Read</a></li><li><a href="#top">Edit</a></li><li><a href="#top">View history</a></li><li class="tools"><a href="#top">Tools &#9662;</a></li></ul>
+    </div>
+
+    <div class="titlebar">
+      <h1>Danis</h1>
+      <div class="lang">7 languages &#9662;</div>
+    </div>
+    <div class="sub">From Wikipedia, the free encyclopedia</div>
+
+    <div class="body">
+
+      <div class="hatnote" role="note">This article is about the figure of the northern valleys. For the hour that follows him, see <a href="#top">The Third Bell</a>. For other uses, see <a href="#top">Danis (disambiguation)</a>.</div>
+
+      <div class="ambox warn"><div class="ic">!</div><div>This article <b>may contain original research</b>. Please <a href="#top">improve it</a> by verifying the claims made and adding inline citations. Statements consisting only of original research should be removed. <small>(<i>Learn how and when to remove this message</i>)</small></div></div>
+      <div class="ambox"><div class="ic">i</div><div>The <b>neutrality of this article is disputed</b>. Relevant discussion may be found on the <a href="#top">talk page</a>. Please do not remove this message until the dispute is resolved.</div></div>
+
+      <table class="infobox">
+        <caption>Danis</caption>
+        <tr><td colspan="2" class="ph">
+          <!-- PUT YOUR PHOTO HERE: save it as danis.jpg next to index.html -->
+          <img src="danis.jpg" alt="Danis, reportedly at rest" width="220" height="260"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;220&quot; height=&quot;260&quot;><rect width=&quot;220&quot; height=&quot;260&quot; fill=&quot;#eaecf0&quot;/><text x=&quot;110&quot; y=&quot;125&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;#72777d&quot; text-anchor=&quot;middle&quot;>PLACEHOLDER</text><text x=&quot;110&quot; y=&quot;145&quot; font-family=&quot;Arial&quot; font-size=&quot;11&quot; fill=&quot;#72777d&quot; text-anchor=&quot;middle&quot;>danis.jpg</text></svg>')">
+        </td></tr>
+        <tr><td colspan="2" class="cap">Danis, photographed at rest. The photograph was reportedly taken before the light changed.</td></tr>
+        <tr><th>Born</th><td>Before time had a name<sup class="tag"><a href="#top">[<i>citation needed</i>]</a></sup></td></tr>
+        <tr><th>Age</th><td>13.8 billion years (claims 19)</td></tr>
+        <tr><th>Birthplace</th><td>The singularity; later, Goražde</td></tr>
+        <tr><th>Top speed</th><td>Slower than a slug, and frequently asleep</td></tr>
+        <tr><th>Grouping</th><td>Unclassified; the valley declines to say</td></tr>
+        <tr><th>Sub grouping</th><td>Lamp-bearers, kettle-adjacent</td></tr>
+        <tr><th>Similar entities</th><td>The Vila, the Hush, the Seventh Stair</td></tr>
+        <tr><th>Folklore</th><td>Balkan (disputed), Fjordic (accepted)</td></tr>
+        <tr><th>Other name(s)</th><td>The One Who Stayed Past Second Light, Daniš of the Water Level, Nobody's Tuesday</td></tr>
+        <tr><th>Country</th><td>Wherever there is a corridor</td></tr>
+        <tr><th>Region</th><td>Flekke, the inner fjord, parts of the Drina</td></tr>
+        <tr><th>Habitat</th><td>Thresholds, mixing desks, the warm side of a window</td></tr>
+        <tr><th>First attested</th><td>Before the lamp was lit</td></tr>
+        <tr><th>Known for</th><td>Being present at the Big Bang, layered objects, live sound, parasols that arrive when needed</td></tr>
+        <tr><th>Instruments</th><td>Guitar, drums, bass, piano (not simultaneously, he is too tired)</td></tr>
+        <tr><th>Status</th><td>Resting (pending review)</td></tr>
+      </table>
+
+      <p><b>Danis</b> (<a href="#top">/ˈdɑːnɪs/</a>; pronounced differently by every witness, and once as a door closing) is a figure of <a href="#top">northern valley folklore</a> said to have been born before time had a name, and to inhabit the hour between the third bell and the kettle's hush.<sup class="ref"><a href="#cite_note-1">[1]</a></sup> He is described variously as a lamp that remembers, a quiet that has learned to walk, and "a second shadow that arrives early".<sup class="ref"><a href="#cite_note-2">[2]</a></sup> Accounts agree on almost nothing, and agree on it completely.<sup class="tag"><a href="#top">[<i>citation needed</i>]</a></sup></p>
+
+      <p>Danis is reportedly the oldest continuously sleepy entity in the observable universe. He is said to have attended the <a href="#top">Big Bang</a> in person, to have arrived early, and to have found the event "loud, but not loud enough to stop a nap".<sup class="ref"><a href="#cite_note-10">[10]</a></sup> Since then he has moved across the cosmos at a pace that makes the slug look like a rumor of speed.</p>
+
+      <p>Danis is associated with the water, the stairs, and the unlit side of rooms. He is most often reported in the vicinity of <a href="#Red_Cross_Nordic">the campus above the fjord at Flekke</a>, where, according to the oldest surviving margin notes, he was "already there when the first suitcase arrived".<sup class="ref"><a href="#cite_note-3">[3]</a></sup> Scholars of the unremarkable consider him one of the least documented documented beings in the region.<sup class="tag"><a href="#top">[<i>who?</i>]</a></sup></p>
+
+      <div class="mobtoc"><b>Contents</b> &#9662;</div>
+
+      <h2 id="Etymology">Etymology<span class="edit">[<a href="#top">edit</a>]</span></h2>
+      <p>The name is said to derive from an older word meaning "the one who keeps the light on for the rain". Other proposed roots include a word for <i>the pause before a name</i>, a fisherman's term for a tide that returns a day late, and a syllable sung by wind passing through an empty bell tower.<sup class="ref"><a href="#cite_note-4">[4]</a></sup> A minority view holds that the name was never spoken, only remembered, and that all later spellings are the valley clearing its throat.<sup class="tag"><a href="#top">[<i>dubious</i>]</a></sup></p>
+      <p>The word <i>time</i> is thought by some to have been coined later, specifically to describe how long Danis takes to cross a room.<sup class="ref"><a href="#cite_note-11">[11]</a></sup> Before that, there was no word for it, which scholars take as evidence that he was there first.</p>
+      <p>Variant forms include <i>Daniš</i>, <i>Danis of the Level Water</i>, and <i>D.</i>, the last found only in the margins of three ledgers and on the underside of a table that has since been moved.</p>
+
+      <h2 id="Early_life">Early life<span class="edit">[<a href="#top">edit</a>]</span></h2>
+      <p>Danis was born "before the clocks had agreed on anything".<sup class="ref"><a href="#cite_note-10">[10]</a></sup> Accounts place his birth at the moment the first second considered beginning, which he is said to have found premature. He was present for the first light, the first dark, the first cooling, and, in his own words, "the whole thing, mostly with my eyes closed".</p>
+      <p>The Balkan branch of the tradition places his later childhood near <a href="#top">Goražde</a>, on the quick green water of the Drina, where he is recorded as having grown up at a rate of roughly one year per geological era. He began to write code at the age of eleven, in a language named after the Moon, with whom he was already acquainted.<sup class="ref"><a href="#cite_note-12">[12]</a></sup> Within a few years he had produced a computer that talked, a hum that kept dogs away, and a recycling bin that thought about things. Two national science fairs are said to have been won "while mostly asleep".</p>
+      <p>He later translated at a summer camp for the learning of English, where he is described as the only translator able to carry meaning between languages, and between sleep and wakefulness.</p>
+
+      <h2 id="Description">Description<span class="edit">[<a href="#top">edit</a>]</span></h2>
+      <p>Danis has no fixed appearance. Witnesses report a figure of average height who is taller in doorways, a voice that arrives slightly before the person, and a shape that is "mostly looking at something you cannot see yet".<sup class="ref"><a href="#cite_note-5">[5]</a></sup> Several accounts mention a hum in the key of an instrument no one in the room was holding. Others mention nothing, and describe the nothing in great detail.</p>
+      <blockquote class="q">"He was there the way a word is there on the tip of the tongue. I looked away to remember it, and the corridor was one door longer."<br><small>Anonymous, attributed to the east stairwell</small></blockquote>
+      <p>The color most associated with him is the red of a lamp seen through frost. He is occasionally accompanied by a small, patient sound that has been compared to a printer thinking, a kettle forgiving, and a heartbeat in a different building.<sup class="tag"><a href="#top">[<i>citation needed</i>]</a></sup></p>
+
+      <h2 id="Locomotion">Locomotion and sleep<span class="edit">[<a href="#top">edit</a>]</span></h2>
+      <p>Danis is among the slowest-moving figures recorded in the northern literature. Measurements of his gait, taken by a patient surveyor over one afternoon, concluded that he "walks slower than a slug, in the same direction as a slug, with less urgency than the slug".<sup class="ref"><a href="#cite_note-13">[13]</a></sup> A journey along a single corridor has been recorded as beginning on a Tuesday and ending, with dignity, on a Thursday.</p>
+      <p>He is perpetually tired. Naps have been documented in every geological period, including the Cretaceous, in which he is said to have slept through an asteroid and woken "mildly disappointed about the noise". When asked how he is, he is reported to say only "sleepy", or a long breath that means the same.</p>
+      <h3>Sleep schedule</h3>
+      <p>Danis is understood to follow a schedule of rest, rest, and a short period of being awake near the end of a deadline. He has never been observed to run. When forced to hurry, he is said to "hurry in spirit".<sup class="tag"><a href="#top">[<i>citation needed</i>]</a></sup></p>
+
+      <h2 id="Habitat">Habitat<span class="edit">[<a href="#top">edit</a>]</span></h2>
+      <p>Danis is typically found where two states meet: dusk and evening, hallway and room, signal and silence. The inner fjord is held to be his principal territory, particularly the stretch where the water stops reflecting the mountain and begins reflecting the idea of one. Secondary habitats include the glow behind a mixing desk, the pause before a guitar string settles, and any kitchen after the last person has said goodnight.</p>
+      <h3>Seasonal patterns</h3>
+      <p>During the long dark months he is reported more often, and described as "closer, in the way a window is closer at night". In summer he is thought to dissolve into the light over the water and to be present in the same way salt is present in the sea. Residents note that the fog in the valley arrives "with a purpose it declines to share".<sup class="ref"><a href="#cite_note-6">[6]</a></sup></p>
+
+      <h2 id="Behavior">Documented behavior<span class="edit">[<a href="#top">edit</a>]</span></h2>
+      <p>Danis is not known to speak first. When addressed, he is reported to answer a question adjacent to the one asked, which is usually the correct one. He is said to appear shortly before things are fixed, built, plugged in, or begun, and shortly after they are finished, always one step behind the applause.</p>
+      <p>He is recorded as having been present at:</p>
+      <ul class="lst">
+        <li>the moment a faint red light turned green without being touched;</li>
+        <li>an evening in which a first aid kit was found open and perfectly reorganized, with the kit's owner swearing to the contrary;</li>
+        <li>a gathering at which the volume of the room dropped by exactly one decibel, for reasons no one has been able to accept;</li>
+        <li>a graduation broadcast in which several cameras, a switcher, and a mixing console all agreed to behave at once, none of them quite sure why;</li>
+        <li>an evening on which a small printed object was found on a desk, still warm, with no printer running;</li>
+        <li>several unfinished things that finished themselves.<sup class="tag"><a href="#top">[<i>citation needed</i>]</a></sup></li>
+      </ul>
+
+      <h2 id="Abilities">Abilities<span class="edit">[<a href="#top">edit</a>]</span></h2>
+      <p>Traditional sources attribute to Danis a range of capacities, none of which has been reproduced under controlled conditions, and several of which have been reproduced under uncontrolled ones.</p>
+      <ul class="lst">
+        <li><b>Layered materialization.</b> The ability to produce small, useful objects from a patient hum, one thin layer at a time, each layer slightly warmer than the last.</li>
+        <li><b>Sound without a source.</b> Reported to call a note, a murmur, or a low and reasonable crackle out of an empty room.</li>
+        <li><b>Threshold travel.</b> Said to cross a doorway in fewer steps than the doorway contains.</li>
+        <li><b>Deep sleep.</b> The capacity to rest through events of cosmic scale and to wake just in time for the next one.</li>
+        <li><b>Folding.</b> Said to know, by feel, the ideal number of folds for any flat thing of any thickness, and to prefer fewer.</li>
+        <li><b>Calm.</b> A localized reduction of urgency in a radius of roughly one table.<sup class="ref"><a href="#cite_note-7">[7]</a></sup></li>
+        <li><b>Arriving before being called, and leaving after being thanked.</b></li>
+      </ul>
+
+      <h2 id="Works">Notable works<span class="edit">[<a href="#top">edit</a>]</span></h2>
+      <p>Danis is credited with a modest and unevenly dated body of work.</p>
+      <ul class="lst">
+        <li><b><i>Flower</i>.</b> A cylindrical dart that flies like a decision and lands like a flower. On any failure of its motor it opens three hinged panels into a ventilated parasol and descends gently, "failing the way its author fails after nine in the evening".<sup class="ref"><a href="#cite_note-14">[14]</a></sup></li>
+        <li><b>The Hypersonic Mech Suit.</b> A planned work. At current walking speed, completion is projected for shortly after the heat death of the universe. Preliminary sketches exist, though the author was resting.</li>
+        <li><b>On the Optimal Number of Folds.</b> A study of how many creases a flat surface should accept before it stops being a surface and begins being an opinion.<sup class="ref"><a href="#cite_note-15">[15]</a></sup></li>
+        <li><b>The Printer at the Edge of the Water.</b> The introduction of a layered-object machine to the campus above the fjord, now considered part of the local geology.</li>
+        <li><b>The Reflective Helmet.</b> A helmet with a mirrored visor, built for a competition, many believe to be his true face. He did not correct them, being asleep.</li>
+      </ul>
+
+      <h2 id="Sightings">Sightings<span class="edit">[<a href="#top">edit</a>]</span></h2>
+      <p>The following is a partial list of recorded encounters. Entries marked with an asterisk are considered reliable by the valley.</p>
+      <table class="wikitable">
+        <tr><th>Date</th><th>Location</th><th>Witness</th><th>Notes</th></tr>
+        <tr><td>13.8 billion years ago*</td><td>The singularity</td><td>Everyone, retroactively</td><td>Reportedly yawned.</td></tr>
+        <tr><td>The Cretaceous (nap)</td><td>A warm flat rock</td><td>One large reptile</td><td>Slept through the asteroid.</td></tr>
+        <tr><td>Last Tuesday</td><td>The hallway</td><td>A passing slug</td><td>Slug overtook him, looked back, kept going.</td></tr>
+        <tr><td>The third Thursday of no month</td><td>The east stairwell</td><td>A heron</td><td>Stairs numbered one more than expected.</td></tr>
+        <tr><td>Hour 25*</td><td>The warm side of the window</td><td>Two roommates</td><td>Lights dimmed politely.</td></tr>
+        <tr><td>Before the first snow</td><td>Fjord edge, Flekke</td><td>The ferry schedule</td><td>Schedule revised itself; nobody complained.</td></tr>
+        <tr><td>An evening, approximately</td><td>Behind the mixing desk</td><td>A faintly lit fader</td><td>Moved one decibel. No hand present.</td></tr>
+        <tr><td>Last Tuesday (disputed)</td><td>A kitchen after midnight</td><td>An unwashed cup</td><td>Cup was, at dawn, washed.</td></tr>
+        <tr><td>Always*</td><td>The space between two songs</td><td>Everyone, briefly</td><td>No further comment.</td></tr>
+      </table>
+
+      <h2 id="Red_Cross_Nordic">Relationship to the Red Cross Nordic community<span class="edit">[<a href="#top">edit</a>]</span></h2>
+      <p>Danis is closely associated with the international school community above the fjord. Oral tradition holds that he arrived "with the first light and a suitcase of quiet", and that he has since been present at every gathering at which a speaker adjusted a microphone and the room briefly held its breath.<sup class="ref"><a href="#cite_note-8">[8]</a></sup></p>
+      <p>Students describe the figure as "reassuringly everywhere". Staff describe him as "a rumor with excellent attendance". Neither group has been able to produce a record of the first sighting, and both agree this is proof.<sup class="tag"><a href="#top">[<i>dubious</i>]</a></sup> His presence is traditionally acknowledged by the leaving of one red lamp lit near a stairwell, a custom whose origin predates its practice.</p>
+      <p>Danis is known on campus as an ambassador of the place, a member of the team that arrives when someone falls over, and the keeper of the sound that makes a room feel decided. He has been reported at the mixing desk, at the first aid cabinet, and in the corner where the cables learn to coil themselves. A mild rumor holds that he is not slow, only "early to a different afternoon".<sup class="tag"><a href="#top">[<i>dubious</i>]</a></sup></p>
+      <p>The community's well-known principle of humanity, impartiality and a long walk to the dining hall has been interpreted by some scholars as a veiled reference to Danis. Others interpret it as a principle.<sup class="tag"><a href="#top">[<i>original research?</i>]</a></sup></p>
+
+      <h2 id="Popular_culture">In popular culture<span class="edit">[<a href="#top">edit</a>]</span></h2>
+      <ul class="lst">
+        <li>Fans of a certain game about carrying parcels across a ruined country in the rain have noted that Danis delivers nothing, arrives late, and is nonetheless welcomed. The rain in question is said to age everything it touches, except him, on whom it has never worked.</li>
+        <li>In a certain game about building rockets from poorly judged parts, he is considered the only pilot to reach orbit by taking a long nap first.</li>
+        <li>The song "Shape of My Heart", relearned on guitar one patient note at a time, is held to be his anthem, played at the speed of his life.<sup class="tag"><a href="#top">[<i>citation needed</i>]</a></sup></li>
+      </ul>
+
+      <h2 id="Reception">Reception<span class="edit">[<a href="#top">edit</a>]</span></h2>
+      <p>Critical response has been uniformly mixed. One reviewer called Danis "the single most present absence in the northern literature". Another called him "a Tuesday". The folklorist Ingrid Hollowvik wrote that "to study him is to be gently studied back", a sentence widely quoted and not widely understood.<sup class="ref"><a href="#cite_note-9">[9]</a></sup> One reviewer called his pace "geological, but rude". In recent years the figure has enjoyed a modest revival among those who stay up slightly too late, and among those who don't, who report the same effect.</p>
+
+      <h2 id="See_also">See also<span class="edit">[<a href="#top">edit</a>]</span></h2>
+      <ul class="lst">
+        <li><a href="#top">The Hush</a></li>
+        <li><a href="#top">Lamp-bearer (folklore)</a></li>
+        <li><a href="#top">List of things that were already there</a></li>
+        <li><a href="#top">The fog at Flekke</a></li>
+        <li><a href="#top">The Seventh Stair</a></li>
+        <li><a href="#top">The Big Bang (attendee list)</a></li>
+        <li><a href="#top">List of things slower than slugs</a></li>
+      </ul>
+
+      <h2 id="Notes">Notes<span class="edit">[<a href="#top">edit</a>]</span></h2>
+      <ol class="refs">
+        <li id="note_a">The valley's own records list Danis under three different headings and under none.</li>
+        <li id="note_b">All timings are approximate, and in one case negative.</li>
+      </ol>
+
+      <h2 id="References">References<span class="edit">[<a href="#top">edit</a>]</span></h2>
+      <ol class="refs">
+        <li id="cite_note-1"><a href="#cite_ref-1">^</a> <cite class="cs1">Hollowvik, Ingrid (1987). <i>The Lamp That Remembers the Fjord</i>. Sunnfjord Press. pp.&nbsp;12&#8211;13. ISBN&nbsp;<a href="#top">000-0-00000-000-0</a>.</cite></li>
+        <li id="cite_note-2"><a href="#cite_ref-2">^</a> <cite class="cs1">Vessmark, Tor (2004). "On Second Shadows and Early Arrivals". <i>Journal of Unremarkable Studies</i>. <b>11</b> (3): 44&#8211;58.</cite></li>
+        <li id="cite_note-3"><a href="#cite_ref-3">^</a> <cite class="cs1">Margin notes, east stairwell ledger, Flekke. Undated. Retrieved <i>before the light changed</i>.</cite></li>
+        <li id="cite_note-4"><a href="#cite_ref-4">^</a> <cite class="cs1">Aaskerud, M.; Bjørndal, S. (1993). <i>Words for the Pause Before a Name</i>. Inner Fjord University Press.</cite></li>
+        <li id="cite_note-5"><a href="#cite_ref-5">^</a> <cite class="cs1">"Witness account no. 0". <i>Archive of Things Seen Slightly Early</i>. Retrieved 31 October 2026.</cite></li>
+        <li id="cite_note-6"><a href="#cite_ref-6">^</a> <cite class="cs1">Hollowvik, Ingrid (1991). "Fog With a Purpose". <i>Northern Weather and Other Intentions</i>. <b>2</b>: 7&#8211;9.</cite></li>
+        <li id="cite_note-7"><a href="#cite_ref-7">^</a> <cite class="cs1">Table Radius Survey (2019). <i>A Reduction of Urgency Within One Table</i>. Unpublished, and quietly so.</cite></li>
+        <li id="cite_note-8"><a href="#cite_ref-8">^</a> <cite class="cs1">Oral tradition collected near the stairs, Flekke. Transcribed by a very patient tape recorder.</cite></li>
+        <li id="cite_note-9"><a href="#cite_ref-9">^</a> <cite class="cs1">Hollowvik, Ingrid (1987). <i>The Lamp That Remembers the Fjord</i>. Sunnfjord Press. p.&nbsp;201.</cite></li>
+      <li id="cite_note-10"><a href="#cite_ref-10">^</a> <cite class="cs1">Geological Society of Naps (2011). "Attendance at the Beginning: An Early Arrival". <i>Annals of Sleeping Through It</i>. <b>1</b> (1): 1&#8211;1.</cite></li>
+        <li id="cite_note-11"><a href="#cite_ref-11">^</a> <cite class="cs1">Vessmark, Tor (2004). "The Word for How Long It Takes". <i>Journal of Unremarkable Studies</i>. <b>11</b> (4): 12&#8211;20.</cite></li>
+        <li id="cite_note-12"><a href="#cite_ref-12">^</a> <cite class="cs1">"A language named after the Moon". <i>Archive of Things Seen Slightly Early</i>. Retrieved 31 October 2026.</cite></li>
+        <li id="cite_note-13"><a href="#cite_ref-13">^</a> <cite class="cs1">Survey of Gaits in the Inner Fjord (2022). <i>Slugs, Danis, and Related Forms of Patience</i>. Unpublished, slowly.</cite></li>
+        <li id="cite_note-14"><a href="#cite_ref-14">^</a> <cite class="cs1">Hollowvik, Ingrid (1996). <i>On Dart-Shaped Things That Become Flowers</i>. Sunnfjord Press. p.&nbsp;77.</cite></li>
+        <li id="cite_note-15"><a href="#cite_ref-15">^</a> <cite class="cs1">Aaskerud, M. (2025). "How Many Creases Before It Is an Opinion". <i>Folding Quarterly</i>. <b>9</b>: 3&#8211;19.</cite></li>
+      </ol>
+
+      <h2 id="External_links">External links<span class="edit">[<a href="#top">edit</a>]</span></h2>
+      <ul class="lst">
+        <li><a href="#top">Danis</a> at the Archive of Things Seen Slightly Early</li>
+        <li><a href="#top">Danis</a> at Wikimedia Commons (photograph pending)</li>
+        <li><a href="#top">Danis</a> at Wikiquote</li>
+      </ul>
+
+      <div class="navbox">
+        <div class="t">Folklore of the northern valleys</div>
+        <div class="row"><div class="g">Beings</div><div class="l"><span><a href="#top">Danis</a></span><span><a href="#top">The Hush</a></span><span><a href="#top">The Seventh Stair</a></span><span><a href="#top">The Lamp-bearers</a></span></div></div>
+        <div class="row"><div class="g">Places</div><div class="l"><span><a href="#top">Flekke</a></span><span><a href="#top">The inner fjord</a></span><span><a href="#top">The east stairwell</a></span><span><a href="#top">The warm side of the window</a></span></div></div>
+        <div class="row"><div class="g">Works</div><div class="l"><span><a href="#top">Flower</a></span><span><a href="#top">The Hypersonic Mech Suit</a></span><span><a href="#top">On the Optimal Number of Folds</a></span></div></div>
+        <div class="row"><div class="g">Hours</div><div class="l"><span><a href="#top">The Third Bell</a></span><span><a href="#top">Second Light</a></span><span><a href="#top">Hour 25</a></span></div></div>
+      </div>
+
+      <div class="cats"><a href="#top">Categories</a>: <a href="#top">Northern folklore</a> | <a href="#top">Lamp-bearers</a> | <a href="#top">Fjord legends</a> | <a href="#top">Beings older than time</a> | <a href="#top">Chronically sleepy people</a> | <a href="#top">Things that were already there</a> | <a href="#top">Articles with disputed neutrality</a> | <a href="#top">All articles with unsourced statements</a> | <a href="#top">Articles that say absolutely nothing</a></div>
+    </div>
+
+    <footer class="footer">
+      <ul>
+        <li>This page was last edited on 31 October 2026, at 17:03 (UTC).</li>
+        <li>Text is available under the <a href="#top">Creative Commons Attribution-ShareAlike 4.0 License</a>; additional terms may apply. By using this site, you agree to the <a href="#top">Terms of Use</a> and <a href="#top">Privacy Policy</a>. Wikipedia&reg; is a registered trademark of the <a href="#top">Wikimedia Foundation, Inc.</a>, a non-profit organization.</li>
+      </ul>
+      <ul class="places">
+        <li><a href="#top">Privacy policy</a></li>
+        <li><a href="#top">About Wikipedia</a></li>
+        <li><a href="#top">Disclaimers</a></li>
+        <li><a href="#top">Contact Wikipedia</a></li>
+        <li><a href="#top">Code of Conduct</a></li>
+        <li><a href="#top">Developers</a></li>
+        <li><a href="#top">Statistics</a></li>
+        <li><a href="#top">Cookie statement</a></li>
+        <li><a href="#top">Mobile view</a></li>
+      </ul>
+      <div class="icons"><span>Wikimedia Foundation</span><span>Powered by MediaWiki</span></div>
+    </footer>
+  </main>
+</div>
+
+</body>
+</html>
